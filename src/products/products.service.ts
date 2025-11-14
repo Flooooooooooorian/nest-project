@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './product.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from './create-product.dto';
+import { UpdateProductDto } from './update-product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -17,5 +18,10 @@ export class ProductsService {
 
   createProduct(productCreationDto: CreateProductDto) {
     return this.productRepository.save(productCreationDto);
+  }
+
+  updateProduct(id: string, productUpdateDto: UpdateProductDto) {
+    const productToUpdate = { ...productUpdateDto, id };
+    return this.productRepository.save(productToUpdate);
   }
 }

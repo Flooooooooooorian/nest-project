@@ -51,4 +51,27 @@ describe('ProductsService', () => {
       expectedResult,
     );
   });
+
+  it('should return Promise<Product> when update is called', async () => {
+    const id = '1';
+    const createProductDto = {
+      name: 'Test Product',
+      price: 100,
+      description: 'A product for testing',
+      stock: 10,
+    };
+    const expectedResult = {
+      id: '1',
+      name: 'Test Product',
+      price: 100,
+      description: 'A product for testing',
+      stock: 10,
+    };
+
+    mockRepository.save.mockReturnValue(expectedResult);
+
+    expect(await service.updateProduct(id, createProductDto)).toEqual(
+      expectedResult,
+    );
+  });
 });

@@ -84,4 +84,27 @@ describe('ProductsController', () => {
         statusCode: 400,
       });
   });
+
+  it('should respond with 200 when put product', async () => {
+    const requestBody = {
+      name: 'Sample Product',
+      price: 3,
+      description: 'This is a sample product',
+      stock: 20,
+    };
+    const updateDto = {
+      name: 'Sample Update Product',
+      price: 6,
+      description: 'This is a updated sample product',
+      stock: 15,
+    };
+    const response = await request(app.getHttpServer())
+      .post('/products')
+      .send(requestBody)
+      .expect(201);
+
+    return await request(app.getHttpServer())
+      .put(`/products/${response.body.id}`)
+      .send(updateDto);
+  });
 });
