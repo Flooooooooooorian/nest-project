@@ -24,4 +24,8 @@ export class ProductsService {
     const productToUpdate = { ...productUpdateDto, id };
     return this.productRepository.save(productToUpdate);
   }
+
+  deleteProduct(id: string) {
+    return this.productRepository.delete(id);
+  }
 }

@@ -4,6 +4,7 @@ import { ProductsService } from './products.service';
 const mockRepository = {
   find: jest.fn(),
   save: jest.fn(),
+  delete: jest.fn(),
 };
 
 describe('ProductsService', () => {
@@ -73,5 +74,13 @@ describe('ProductsService', () => {
     expect(await service.updateProduct(id, createProductDto)).toEqual(
       expectedResult,
     );
+  });
+
+  it('should return Promise when delete is called', async () => {
+    const id = '1';
+
+    await service.deleteProduct(id);
+
+    expect(mockRepository.delete).toHaveBeenCalledWith(id);
   });
 });

@@ -107,4 +107,21 @@ describe('ProductsController', () => {
       .put(`/products/${response.body.id}`)
       .send(updateDto);
   });
+
+  it('should respond with 200 when delete product', async () => {
+    const requestBody = {
+      name: 'Sample Product',
+      price: 3,
+      description: 'This is a sample product',
+      stock: 20,
+    };
+    const response = await request(app.getHttpServer())
+      .post('/products')
+      .send(requestBody)
+      .expect(201);
+
+    return await request(app.getHttpServer())
+      .delete(`/products/${response.body.id}`)
+      .expect(200);
+  });
 });
