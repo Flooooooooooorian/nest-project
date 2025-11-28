@@ -10,6 +10,7 @@ import {
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './create-product.dto';
 import { UpdateProductDto } from './update-product.dto';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('products')
 export class ProductsController {
@@ -20,6 +21,11 @@ export class ProductsController {
   }
 
   @Post()
+  @ApiResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   postProduct(@Body() productCreationDto: CreateProductDto) {
     return this.productsService.createProduct(productCreationDto);
   }
